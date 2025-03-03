@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProjectDto.MovieDto>
+
+@{
+    ViewData["Title"] = "MovieList";
+}
+
+<h2>Filmler</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Film Adı</th>
+            <th>Film Türü</th>
+            <th>Film Hakkında</th>
+            <th>Yayınlanma Tarihi</th>
+            <th>İzlenme Durumu</th>
+            <th>Film Afiş</th>
+            <th>Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.MovieName</td>
+                <td>@movie.MovieType</td>
+                <td>@movie.MovieDescription</td>
+                <td>@movie.ReleaseDate.ToShortDateString()</td>
+                <td>@(movie.isWatch ? "Watched" : "Not Watched")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(movie.ImageMovie))
+                    {
+                        <img src="~/FilmAppMVCImages/@movie.ImageMovie" alt="Movie Image" style="max-width: 100px;" />
+                    }
+                </td>
+                <td>
+                    <br />
+                    <div style="display: flex; gap: 10px;">
+                        <a href="@Url.Action("Update", new { id = movie.Id })" class="btn btn-primary btn-size">Edit</a>
+                        <a href="@Url.Action("DeleteMovie", new { id = movie.Id })" class="btn btn-danger btn-size">Delete</a>
+                    </div>
+                    <br />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

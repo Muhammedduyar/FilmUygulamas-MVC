@@ -1,0 +1,67 @@
+﻿@model FilmApp.Models.MovieImages
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+@{
+    ViewData["Title"] = "Add Movie";
+}
+
+<h2>Add Movie</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AddMovie" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="MovieName" class="control-label"></label>
+                <input asp-for="MovieName" class="form-control" />
+                <span asp-validation-for="MovieName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieDescription" class="control-label"></label>
+                <input asp-for="MovieDescription" class="form-control" />
+                <span asp-validation-for="MovieDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieType" class="control-label"></label>
+                <input asp-for="MovieType" class="form-control" />
+                <span asp-validation-for="MovieType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleasedDate" class="control-label"></label>
+                <input asp-for="ReleasedDate" class="form-control" type="date" />
+                <span asp-validation-for="ReleasedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none;">
+                <label asp-for="isWatched" class="control-label"></label>
+                <input asp-for="isWatched" class="form-control" type="checkbox" />
+                <span asp-validation-for="isWatched" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" type="file" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

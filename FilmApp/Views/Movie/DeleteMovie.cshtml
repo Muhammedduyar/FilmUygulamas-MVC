@@ -1,0 +1,32 @@
+﻿@model ProjectDto.MovieDto
+
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+
+<h2>Delete Movie</h2>
+
+<h3>Filmi silmek istediğinize emin misiniz? Silme işlemi geri alınamaz.</h3>
+<div>
+    <h4>@Model.MovieName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Movie Type</dt>
+        <dd class="col-sm-10">@Model.MovieType</dd>
+
+        <dt class="col-sm-2">Description</dt>
+        <dd class="col-sm-10">@Model.MovieDescription</dd>
+
+        <dt class="col-sm-2">Release Date</dt>
+        <dd class="col-sm-10">@Model.ReleaseDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Watch Status</dt>
+        <dd class="col-sm-10">@(Model.isWatch ? "Watched" : "Not Watched")</dd>
+    </dl>
+
+    <form asp-action="DeleteMovie" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="submit" value="Yes, Delete" class="btn btn-danger" />
+        <a href="@Url.Action("Index","Movie")" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

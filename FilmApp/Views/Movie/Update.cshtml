@@ -1,0 +1,70 @@
+﻿@model FilmApp.Models.MovieImages
+
+@{
+    ViewData["Title"] = "Update Movie";
+}
+
+<h2>Update Movie</h2>
+
+<form asp-action="Update" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="MovieName" class="control-label"></label>
+        <input asp-for="MovieName" class="form-control" />
+        <span asp-validation-for="MovieName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MovieType" class="control-label"></label>
+        <input asp-for="MovieType" class="form-control" />
+        <span asp-validation-for="MovieType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MovieDescription" class="control-label"></label>
+        <textarea asp-for="MovieDescription" class="form-control"></textarea>
+        <span asp-validation-for="MovieDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReleasedDate" class="control-label"></label>
+        <input asp-for="ReleasedDate" type="date" class="form-control" />
+        <span asp-validation-for="ReleasedDate" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="isWatched" class="control-label"></label>
+        <input asp-for="isWatched" type="checkbox" />
+        <span asp-validation-for="isWatched" class="text-danger"></span>
+    </div>
+    
+    <div style="display: none" class="form-group">
+        <label asp-for="MovieId" class="control-label"></label>
+        <input asp-for="MovieId" type="text"/>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Image">Image</label>
+        <input type="file" id="Image" name="Image" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <!-- Eğer mevcut resmi göstermek isterseniz: -->
+    @if (Model.Image != null && Model.Image.Length > 0)
+    {
+        <div class="form-group">
+            <label>Current Image</label>
+            <img src="@Url.Content("~/FilmAppMVCImages/" + Model.Image)" alt="Current Image" class="img-thumbnail" style="max-width: 200px;" />
+        </div>
+    }
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
